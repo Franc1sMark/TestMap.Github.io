@@ -1,12 +1,14 @@
 <html>
-<html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Directions</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvofmp2J6n-TvSbRa32zG4r-CtU6Ymwwo&callback=initMap" async defer></script>
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 14.6, lng: 121.02 },
-                zoom: 12,
+                center: { lat: 14.5584165, lng: 121.0543903 }, // Center near the origin
+                zoom: 14, // Adjust zoom for better view
                 styles: [ // Dark Mode Styles
                     { "elementType": "geometry", "stylers": [{ "color": "#212121" }] },
                     { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] },
@@ -19,15 +21,18 @@
             var directionsService = new google.maps.DirectionsService();
             var directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
 
+            var origin = { lat: 14.5584165, lng: 121.0543903 }; // Same as your Embed API
+            var destination = { lat: 14.554729, lng: 121.0244452 }; // Same as your Embed API
+
             directionsService.route({
-                origin: { lat: 14.559146, lng: 121.0145867 },
-                destination: { lat: 14.6405942, lng: 121.0313648 },
+                origin: origin,
+                destination: destination,
                 travelMode: google.maps.TravelMode.DRIVING
             }, function (response, status) {
                 if (status === 'OK') {
                     directionsRenderer.setDirections(response);
                 } else {
-                    alert('Directions request failed due to ' + status);
+                    console.error('Directions request failed due to ' + status);
                 }
             });
         }
